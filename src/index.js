@@ -3,6 +3,13 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { initializeParse } from '@parse/react';
+
+initializeParse(
+  'YOUR_SERVER_URL',
+  'YOUR_APPLICATION_ID',
+  'YOUR_JAVASCRIPT_KEY'
+);
 
 ReactDOM.render(
   <React.StrictMode>

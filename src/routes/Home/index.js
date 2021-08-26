@@ -1,13 +1,52 @@
+import {useEffect, useState } from 'react'
+import {useHistory} from 'react-router-dom';
+import Parse from 'parse';
 import './Home.css'
+import {useParseQuery} from '@parse/react';
+
 
 export default function Home() {
+  const [postText, setPostText] = useState('');
+  const history = useHistory();
+  
+  const parseQuery = new Parse.Query('Post');
+  parseQuery.descending("createdAt");
 
-  const initialPosts = [{
-    userName: 'User 1',
-    post: "Hello, I'm super happy to be a part of this social network"
-  }]
+  useEffect(() => {
+    async function checkUser() {
+      const currentUser = await Parse.User.currentAsync();
+      if (!currentUser) {
+        alert('You need to be logged in to access this page');
+        history.push("/auth");
+      }
+    }
+    checkUser();
+  }, []);
   
 
+  const {
+    isLive,
+    isLoading,
+    isSyncing,
+    results,
+    count,
+    error,
+    reload
+  } = useParseQuery(
+    parseQuery
+  );
+
+  const handleSubmitPost = (e) => {
+    e.preventDefault();
+    const Post = Parse.Object.extend("Post");
+    const newPost = new Post();
+    newPost.save({
+      text: postText,
+      authorName: Parse.User.current().get('username'),
+    });
+    setPostText("");
+  };
+  
   return (
     <div className="App">
       <header className="app-header">
@@ -17,17 +56,17 @@ export default function Home() {
       </header>
       
       <div className="posts-container">
-      <div className="actions">
-        <textarea />
-        <button>post</button>
-      </div>
+      <form onSubmit={handleSubmitPost}className="actions">
+        <textarea value={postText} onChange={event => setPostText(event.currentTarget.value)}/>
+        <button type="submit">post</button>
+      </form>
 
 
       <div className="post-list">
-        {initialPosts && initialPosts.map(({userName, post},index) => (
+        {results && results.map((user,index) => (
         <div className="post" key={index}>
-          <span>{userName}</span>
-          <p>{post}</p>
+          <span>{user.get('authorName')}</span>
+          <p>{user.get('text')}</p>
         </div>))}
       </div>
       </div>
