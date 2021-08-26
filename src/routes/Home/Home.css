@@ -1,0 +1,92 @@
+*{
+    padding: 0;
+    margin: 0;
+  }
+  
+  
+  header.app-header{
+    background-color: #208AEC;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 100px;
+    justify-content: center;
+    align-items: center;
+    color: white;
+  }
+  
+  .spacing{
+    margin: 10px;
+  }
+  
+  .logo{
+    width: 400px; 
+  }
+  
+  main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 20px;
+  }
+  
+  main h1{
+    margin-bottom: 20px;
+  }
+  
+  .posts-container{
+    padding: 0 10%;
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  
+  .actions{
+    border: 1px solid #ececec;
+    border-radius: 5px;
+    overflow: hidden;
+  }
+  
+  .posts-container .actions{
+    display: flex;
+    width: 500px;
+  }
+  .posts-container .actions textarea{
+    flex: 9;
+    padding: 10px 5px;
+    resize: none;
+    border: none;
+  }
+  .posts-container .actions button{
+    flex: 1;
+    padding: 0 15px;
+    border: none;
+    color: white;
+    background-color: #208AEC;
+    font-weight: 600;
+    cursor: pointer;
+    text-transform: uppercase;
+  }
+  .posts-container .actions textarea:focus,button:focus{
+    outline: none;
+  }
+  
+  .post{
+    width: 500px;
+    border: solid 1px #e8e8e8;
+    border-radius: 8px;
+    background: #ffffe8;
+    padding: 10px 0;
+    margin-top: 15px;
+  }
+  
+  .post span{
+    margin-left: 10px;
+  }
+  
+  .post p{
+    margin-left: 20px;
+    margin-top: 10px;
+  }
