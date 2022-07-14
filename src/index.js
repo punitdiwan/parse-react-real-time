@@ -6,9 +6,9 @@ import reportWebVitals from './reportWebVitals';
 import { initializeParse } from '@parse/react';
 
 initializeParse(
-  'YOUR_SERVER_URL',
-  'YOUR_APPLICATION_ID',
-  'YOUR_JAVASCRIPT_KEY'
+  'https://qpapi.maitretech.com/api/',
+  'APPLICATION_ID',
+  'JAVASCRIPT_KEY'
 );
 
 ReactDOM.render(

@@ -6,10 +6,10 @@ import {useParseQuery} from '@parse/react';
 
 
 export default function Home() {
-  const [postText, setPostText] = useState('');
+  const [todo, setTodo] = useState('');
   const history = useHistory();
   
-  const parseQuery = new Parse.Query('Post');
+  const parseQuery = new Parse.Query('Todo');
   parseQuery.descending("createdAt");
 
   useEffect(() => {
@@ -36,37 +36,35 @@ export default function Home() {
     parseQuery
   );
 
-  const handleSubmitPost = (e) => {
+  const handleSubmitTodo = (e) => {
     e.preventDefault();
-    const Post = Parse.Object.extend("Post");
-    const newPost = new Post();
-    newPost.save({
-      text: postText,
-      authorName: Parse.User.current().get('username'),
+    const Todo = Parse.Object.extend("Todo");
+    const newTodo = new Todo();
+    newTodo.save({
+      title: todo,
+      completed: false
     });
-    setPostText("");
+    setTodo("");
   };
   
   return (
     <div className="App">
       <header className="app-header">
-      <img className="logo" alt="back4app's logo" src={'https://blog.back4app.com/wp-content/uploads/2019/05/back4app-white-logo-500px.png'} />
-        <h2 className="spacing">parse hooks</h2>
+        <h2 className="spacing">Parse Server Sample</h2>
         <span>social network</span>
       </header>
       
       <div className="posts-container">
-      <form onSubmit={handleSubmitPost}className="actions">
-        <textarea value={postText} onChange={event => setPostText(event.currentTarget.value)}/>
-        <button type="submit">post</button>
+      <form onSubmit={handleSubmitTodo} className="actions">
+        <textarea value={todo} onChange={event => setTodo(event.target.value)}/>
+        <button type="submit">Post Todo</button>
       </form>
 
 
       <div className="post-list">
-        {results && results.map((user,index) => (
+        {results && results.map((todo,index) => (
         <div className="post" key={index}>
-          <span>{user.get('authorName')}</span>
-          <p>{user.get('text')}</p>
+          <p>{todo.get('title')}</p>
         </div>))}
       </div>
       </div>
